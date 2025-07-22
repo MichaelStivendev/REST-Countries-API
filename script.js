@@ -6,7 +6,7 @@ let countrys = [];
   async function getDatos() {
     try {
       const res = await fetch(
-        "data.json"
+        "./data.json"
         // "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,region,subregion,tld,languages,flags,borders"
       );
       const data = await res.json();
@@ -143,7 +143,7 @@ function initCountryInfo(code) {
   console.log(code);
   
   backButton.addEventListener("click", (e) => {
-   history.replaceState({}, "", "/");
+   history.replaceState({}, "", window.location.pathname);
   loadPage("home.html");
   });
   let pais = countrys.find((country) => country.alpha3Code === code);
