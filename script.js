@@ -3,7 +3,14 @@ const html = document.querySelector("html");
 
 let countrys = [];
 
-  async function getDatos() {
+ 
+
+window.addEventListener("DOMContentLoaded", () => {
+  html.dataset.theme = localStorage.getItem("theme");
+  getDatos()
+});
+
+ async function getDatos() {
     try {
       const res = await fetch(
         "./data.json"
@@ -18,11 +25,6 @@ let countrys = [];
     }
   }
   getDatos();
-
-window.addEventListener("DOMContentLoaded", () => {
-  html.dataset.theme = localStorage.getItem("theme");
-});
-
 btnTheme.addEventListener("click", () => {
   html.dataset.theme = html.dataset.theme == "light" ? "dark" : "light";
   localStorage.setItem("theme", html.dataset.theme);
