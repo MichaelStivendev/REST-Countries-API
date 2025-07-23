@@ -3,12 +3,7 @@ const html = document.querySelector("html");
 
 let countrys = [];
 
- 
 
-window.addEventListener("DOMContentLoaded", () => {
-  html.dataset.theme = localStorage.getItem("theme");
-  getDatos()
-});
 
  async function getDatos() {
     try {
@@ -24,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
       console.error(error);
     }
   }
-  getDatos();
+
 btnTheme.addEventListener("click", () => {
   html.dataset.theme = html.dataset.theme == "light" ? "dark" : "light";
   localStorage.setItem("theme", html.dataset.theme);
@@ -233,17 +228,27 @@ function initCountryInfo(code) {
 
   renderInfi.append(divnew);
 }
-window.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const page = params.get("page");
-  const code = params.get("code");
+window.addEventListener("DOMContentLoaded", async () => {
+  html.dataset.theme = localStorage.getItem("theme");
 
-  if (page === "country" && code) {
-    loadPage("InfoCountry.html", code);
-  } else {
-    loadPage("home.html");
+  try {
+    await getDatos();
+
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+    const code = params.get("code");
+
+    if (page === "country" && code) {
+      loadPage("InfoCountry.html", code);
+    } else {
+      loadPage("home.html");
+    }
+
+  } catch (error) {
+    alert("Error al cargar datos");
   }
 });
+
 window.addEventListener("popstate", () => {
   const params = new URLSearchParams(window.location.search);
   const page = params.get("page");
